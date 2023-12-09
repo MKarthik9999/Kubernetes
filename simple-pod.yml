@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod  # specifies the type of the kubernetes object being creates here it is Pod
+metadata:
+  name: my-pod  # specifying the name of the pod
+spec:    # specifications of the pod
+  containers: # we are mentioning that we want containers in the pod
+    - name: my-simple-container # name of the pod
+      image: nginx:latest # name of the image
+      ports:  #ports that should be used
+        - containerPort: 80 # port that the container uses to have communication to the outside world
