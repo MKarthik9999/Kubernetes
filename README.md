@@ -13,6 +13,21 @@
 > 1. kubectl delete pods --all -> deletes all pods in the namespace
 > 1. kubectl port-forward < pod-name > < local-port >:< container-port > -> helps to expose our application to outside world
 
+# What is a Deployment?
+* Deployment is an _**abstraction**_ that allows you to _**declaratively describe the desired state of your application**_.
+* When you create a deployment, you specify the desired state of your application by defining the number of replicas and other configuration parameters. Kubernetes then _**ensures that the actual state matches the desired state**_.
+* If there is **any difference in them** then Kubernetes takes care of it by _**either adding or removing the pods as necessary**_.
+
+# Important Commands related to Depoyment Pods:
+> 1. _**kubectl apply -f web-app.yaml**_ --> Create/Apply/Update Deployment
+> 2. _**kubectl get deployments**_ --> Check Deployment and Pods (kubectl get pods)
+> 3. _**kubectl scale deployment web-app**_ --replicas=5 --> Scale Deployment
+> 4. _**kubectl rollout status deployment web-app**_ --> Rollout (updating to newer versions) status
+> 5. _**kubectl rollout undo deployment web-app**_ --> Rollback to previous version
+> 6. _**kubectl rollout status deployment web-app**_ --> Rollback status
+> 7. _**kubectl delete deployment web-app**_ --> Delete Deploymen
+
+
 # What is a Replicaset?
 * ReplicaSet _**ensures that a specified number of replica pods are running at any point in time**_.
 * It is ***responsible for maintaining the desired replica count and managing the lifecycle of the pods***.
