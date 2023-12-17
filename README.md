@@ -1,4 +1,6 @@
 # Kubernetes
+1. kubectl get nodes -->  Lists all nodes in the cluster.
+2. kubectl cluster-info --> Displays the endpoint of the Kubernetes master and services.
 # What is a Pod?
 * A Pod is the smallest in Kubernetes, in Kubernetes we can’t directly deploy a container instead we create a pod and deploy a container in that pod.
 * A pod can have one or more containers, one container per pod is the ideal use case, the main container might be running our main application, and other containers are used to support our main application container. _**The other containers are called sidecar containers or helper containers**_.
@@ -14,7 +16,7 @@
 > 1. kubectl port-forward < pod-name > < local-port >:< container-port > -> helps to expose our application to outside world
 
 # What is a Deployment?
-* Deployment is an _**abstraction**_ that allows you to _**declaratively describe the desired state of your application**_.
+* Deployment is an _**abstraction**_ that allows you to _**describe the desired state of your application**_.
 * When you create a deployment, you specify the desired state of your application by defining the number of replicas and other configuration parameters. Kubernetes then _**ensures that the actual state matches the desired state**_.
 * If there is **any difference in them** then Kubernetes takes care of it by _**either adding or removing the pods as necessary**_.
 
@@ -34,6 +36,11 @@
 * They help in achieving _**high availability and scalability**_ by automatically scaling the number of replicas up or down based on the specification.
 * When you create a replica set, ***you specify the desired number of replicas and provide a template for creating the pods***.
 
-# Important Commands related to Replicaset Pods:
+**_If we deploy pod as a normal pod then it will running as a single pod there will be no HIGH AVAILABILITY, but if we create a pod with multiple copies using a DEPLOYMENT, it provides HIGH AVAILABILITY, the deployment internally creates a REPLICA SET and the replica set ensures that the actual state matches the desired state._**
 
+# Any manifest file (either pod or deployment or replicaset) **_there are four primary attributes:_**
+1. apiVersion:
+2. kind: which has the information about the kind of the maifest file (either pod or deployment or replicaset)
+3. metadata:
+4. spec:
 
