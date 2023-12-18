@@ -61,7 +61,22 @@
 * ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/afc0a91e-1e95-437c-9691-7b1c00301878)
 
 # Types of Services in Kubernetes services:
-1. ClusterIp:
+# 1. ClusterIp:
    * It is used for internal communication within the cluster.
    * This is the default service type used by the Kubernetes service.
+   * This is the most secure service type in the kubernetes services.
+   * If we create a clusterIp service and if we attach that service to any of our deployments, then the pods deployed in that deployment can be able communicate with each other.
+   * we can check using the following commands.
+      * Find pod names using the following command:
+          * _**kubectl get pods**_
+      * Enter into one of the pods from the list of the pods using the following command:
+          * _**kubectl exec -it <source-pod-name> -- /bin/sh**_
+      * Inside that pod we can test the communication ****using the service name****:
+          * _**curl internal-service:80**_
+      * If we can be able to see our website deployed in the pods, then we can say that there is a communiccation between the pods.
+      * we can also see it using the ip-address of the other pods and try to ping one pod from another pod
+          * _**curl ip-address-of-the-destination-pod**_
+# 2. Node Port:
+
+
 
