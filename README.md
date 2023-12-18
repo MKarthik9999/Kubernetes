@@ -44,3 +44,24 @@
 3. metadata:
 4. spec:
 
+# Kubernetes Sevices:
+# What is a Kubernetes Service and why do we use it
+* Normally, interms of networking if any device wants to communicate with any other devices with in the same network or outside that network it has to be happend through the IP address only.
+* similarly in Kubernetes if any pod needs to communicate with other pods or to communicate outside of the kubernetes cluster it has to be happend through the IP addresses only.
+* whenever we create a pod or create multiple pods within a deployment, kubernetes assigns an individual Ip address to those pods, since we know that the lifecycle of these pods is ephimeral (meaning pods dont last for long time) their IP addresses will change everytime whenever the pod is deleted and recreated, the connections that are communicating with those kinds of pods will be terminated because of the change in the IP address.
+* Even though a new pod is created for communication there will be no communication because the Ip address will be different, the Ip address of the newly created pod has to be updated to whom ever it was having comminication before, to have the communication.
+* It is very difficult and complex process to update new Ip address each and every time whenver a pod is deleted and recreated.
+* To overcome this problem we use **_Kubernetes services_**
+* so whenever we are creating a deployment _**we use selectors**_ to deploy pods in a group with a same group name, so whenever a pod is deleted and recreated it might have different Ip address but the newly created pod will still belongs to same deployment group.
+* Using that Group name we can be able to commicate within the kubernetes cluster and outside the cluster.
+* _**we use that group name while we create a kubernetes service**_ so that the service can be able to detect whenver a pod is deleted and recreated it can be able to detect those pods with the help of the group name(selectors) rather than using the IP addresses.
+* so, whenever a new request is arrived to kubenrnetes service it forwards that request to the pods (individual) or pods (releated to Deployment) based on the selectors mentioned while created, even though if any pods are deleted and created they will be updated because the recreated pods uses the same selector.
+
+
+* ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/afc0a91e-1e95-437c-9691-7b1c00301878)
+
+# Types of Services in Kubernetes services:
+1. ClusterIp:
+   * It is used for internal communication within the cluster.
+   * This is the default service type used by the Kubernetes service.
+
