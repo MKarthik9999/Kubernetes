@@ -56,6 +56,9 @@
 * Using that Group name we can be able to commicate within the kubernetes cluster and outside the cluster.
 * _**we use that group name while we create a kubernetes service**_ so that the service can be able to detect whenver a pod is deleted and recreated it can be able to detect those pods with the help of the group name(selectors) rather than using the IP addresses.
 * so, whenever a new request is arrived to kubenrnetes service it forwards that request to the pods (individual) or pods (releated to Deployment) based on the selectors mentioned while created, even though if any pods are deleted and created they will be updated because the recreated pods uses the same selector.
+* kubectl get services -o wide
+* kubectl describe services *service-name*
+
 
 
 * ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/afc0a91e-1e95-437c-9691-7b1c00301878)
