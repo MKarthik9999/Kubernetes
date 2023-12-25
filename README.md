@@ -46,11 +46,11 @@
 
 # Kubernetes Sevices:
 # What is a Kubernetes Service and why do we use it
-* Normally, interms of networking if any device wants to communicate with any other devices with in the same network or outside that network it has to be happend through the IP address only.
-* similarly in Kubernetes if any pod needs to communicate with other pods or to communicate outside of the kubernetes cluster it has to be happend through the IP addresses only.
-* whenever we create a pod or create multiple pods within a deployment, kubernetes assigns an individual Ip address to those pods, since we know that the lifecycle of these pods is ephimeral (meaning pods dont last for long time) their IP addresses will change everytime whenever the pod is deleted and recreated, the connections that are communicating with those kinds of pods will be terminated because of the change in the IP address.
-* Even though a new pod is created for communication there will be no communication because the Ip address will be different, the Ip address of the newly created pod has to be updated to whom ever it was having comminication before, to have the communication.
-* It is very difficult and complex process to update new Ip address each and every time whenver a pod is deleted and recreated.
+* Normally, in terms of networking if any device wants to communicate with any other devices within the same network or outside that network it has to happen through the IP address only.
+* similarly in Kubernetes if any pod needs to communicate with other pods or to communicate outside of the Kubernetes cluster it has to happen through the IP addresses only.
+* whenever we create a pod or create multiple pods within a deployment, Kubernetes assigns an individual Ip address to those pods, since we know that the lifecycle of these pods is ephemeral (meaning pods don't last for a long time) their IP addresses will change every time whenever the pod is deleted and recreated, the connections that are communicating with those kinds of pods will be terminated because of the change in the IP address.
+* Even though a new pod is created for communication there will be no communication because the Ip address will be different, the Ip address of the newly created pod has to be updated to whoever it was having communication before, to have the communication.
+* It is very difficult and complex process to update new Ip address every time whenever a pod is deleted and recreated.
 * To overcome this problem we use **_Kubernetes services_**
 * so whenever we are creating a deployment _**we use selectors**_ to deploy pods in a group with a same group name, so whenever a pod is deleted and recreated it might have different Ip address but the newly created pod will still belongs to same deployment group.
 * Using that Group name we can be able to commicate within the kubernetes cluster and outside the cluster.
@@ -68,7 +68,7 @@
    * It is used for internal communication within the cluster.
    * This is the default service type used by the Kubernetes service.
    * This is the most secure service type in the kubernetes services.
-   * If we create a clusterIp service and if we attach that service to any of our deployments, then the pods deployed in that deployment can be able communicate with each other.
+   * If we create a clusterIp service and if we attach that service to any of our deployments, then the pods deployed in that deployment can be able to communicate with each other.
    * we can check using the following commands.
       * Find pod names using the following command:
           * _**kubectl get pods**_
@@ -84,16 +84,52 @@
    * This means that the service becomes accessible externally through any of the Kubernetes nodes, allowing traffic to reach the pods.
    * This internally uses the ClusterIp for internal communication.
    * This is mainly used for testing and development. This is not recommended for production use cases.
-   * ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/81544f00-0bd8-4613-ae5f-a103d98ae379)
+     ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/81544f00-0bd8-4613-ae5f-a103d98ae379)
 # 3. Load Balancer:
    * A LoadBalancer service exposes your application to the external world in a scalable and reliable (secure) manner.
    * NodePort service also exposes our application to the external world, but it exposes the application on a specific node, which causes security issues because we are exposing our application on the node itself.
    * If we try to create a load balancer service, the cloud provider automatically creates a load balancer and provides an IP address for the load balancer for our application.
    * The created load balancer distributes incoming traffic among multiple instances of your application running in the cluster.
    * This also uses the internal ClusterIP for internal communication.
-   * ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/8717e13a-c39c-474e-a906-b42496708462)
-   * 
+  ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/8717e13a-c39c-474e-a906-b42496708462)
+   * Using load Balancer service is the **secured way of getting traffic to our pods/website** but it is a very costly approach because we have to attach a new load balancer every time we create a new service, to overcome this problem using **Kubernetes Ingress**
 
+To sum up, there are three types of services commonly used and they are ClusterIp, NodePort and LoadBalancer
+* LoadBalancer is very helpful in exposing our application to the external world in a simple, secure, and reliable manner
+* But if we just want to test to check our application we can expose our application to the external world using a static port on any of our worker nodes using the NodePort service (only for testing purposes)
+* If we don't want to expose our application at all to the outside world we can use the clusterIp service.
+# Common Interview Questions on Services:
+1. _**What is a Service in Kubernetes?**_
+* A service is an abstraction that provides a consistent way to access and communicate with a set of pods.
+* It acts as a stable network endpoint for accessing the pods enabling inter-pod communication and load balancing.
+2. _**What is a ClusterIp service?**_
+* This is the default service type, This service type is only used for internal communication. 
+3. _**What is a NodePort Service?**_
+* This service exposes the application on each node on a specific port, This service is accessible to the external world using any of the worker node's IP address.
+* Only used for testing and development purposes.
+4. _**What is a LoadBalancer Service?**_
+* uses cloud providers' load balancers to distribute the external traffic to the nodes. This is the most secure type of service to use for the Kubernetes clusters.
+5. _**How the POD Communication happens in Kubernetes?**_
+* In Kubernetes we have a DNS service called CoreDNS, when a pod is created from a deployment or replica set, the pods are assigned a DNS name based on its metadata, This DNS name is used by 
+  the other pods to discover and communicate with the pod. This is handled by CoreDNS which maps the DNS name to the IP address of the pod. 
+6. _**Which service is secure in Kubernetes?**_
+* clusterIp service is the most secure service type in Kubernetes because it creates internal-only service within the cluster making sure the services within the cluster are not accessible 
+  to the external world making it only accessible within the cluster.
+7. _**How is a service mapped to its respective pods?**_
+* Using labels and selectors
+* labels are key-value pairs that are attached to Kubernetes objects, including pods and services.
+* selectors are used to match labels on objects.
+8. _**How do the containers in a pod communicate with each other?**_
+* using localhost
+9. _**Explain 4 commands to work with the services.**_
+* kubectl get services
+* kubectl describe service *service-name*
+* kubectl edit service *service-name*
+* kubectl delete service *service-name*
+10. _**NodePort allocation starts from?**_
+* From port 30,000 it doesn't use any port less than this.
+11. _**How to look at which pods are mapped to a service?**_
+* kubectl describe service *service-name*
 
 
 
