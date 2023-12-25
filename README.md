@@ -76,10 +76,26 @@
           * _**kubectl exec -it <source-pod-name> -- /bin/sh**_
       * Inside that pod we can test the communication ****using the service name****:
           * _**curl internal-service:80**_
-      * If we can be able to see our website deployed in the pods, then we can say that there is a communiccation between the pods.
+      * If we can be able to see our website deployed in the pods, then we can say that there is communication between the pods.
       * we can also see it using the ip-address of the other pods and try to ping one pod from another pod
           * _**curl ip-address-of-the-destination-pod**_
 # 2. Node Port:
+   * A NodePort service exposes a set of pods to the outside world on a static port of each node in the cluster.
+   * This means that the service becomes accessible externally through any of the Kubernetes nodes, allowing traffic to reach the pods.
+   * This internally uses the ClusterIp for internal communication.
+   * This is mainly used for testing and development. This is not recommended for production use cases.
+   * ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/81544f00-0bd8-4613-ae5f-a103d98ae379)
+# 3. Load Balancer:
+   * A LoadBalancer service exposes your application to the external world in a scalable and reliable (secure) manner.
+   * NodePort service also exposes our application to the external world, but it exposes the application on a specific node, which causes security issues because we are exposing our application on the node itself.
+   * If we try to create a load balancer service, the cloud provider automatically creates a load balancer and provides an IP address for the load balancer for our application.
+   * The created load balancer distributes incoming traffic among multiple instances of your application running in the cluster.
+   * This also uses the internal ClusterIP for internal communication.
+   * ![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/8717e13a-c39c-474e-a906-b42496708462)
+   * 
+
+
+
 
 
 
