@@ -131,6 +131,27 @@ To sum up, there are three types of services commonly used and they are ClusterI
 11. _**How to look at which pods are mapped to a service?**_
 * kubectl describe service *service-name*
 
+# Kubernetes Ingress
+In the concept of cloud computing, we have two kinds of load balancers and they are:
+1. Network Load Balancer (Layer-4)
+2. Application Load Balancer (Layer-7)
+* Network Load Balancers which are resided at Layer-4 are used for just forwarding the network traffic to the backend device without any modifications like no decision making.
+* Application Load Balancers that reside at Layer-7 are used not only for forwarding the network traffic but also for routing traffic based on content and performing advanced request routing such as hosting different kinds of domains under the single Load Balancer, for example, www.facebook.com, www.google.com, www.amazon.com are three websites that we want to host in that case we don't need to have three load balancer for these, instead we can just have one load balancer when the client hits facebook.com the load balancer forwards the traffic to wwww.facebook.com
+
+* In the Kubernetes services we have a LoadBalancer service, which is  a Layer-4 load balancer that is just used to forward the network traffic to its backend devices. If we want to have a Layer-7 Load Balancer we must deploy an _**Ingress Controller**_ which is a workload component.
+![image](https://github.com/MKarthik9999/Kubernetes/assets/88875317/665c7a2d-807f-4dd9-9c48-4f38388aa5fb)
+* For example, from the above picture if the user wants to hit app.example.com, the request first will be reached by the Kubernetes Ingress controller, the controller then checks for the resources that match the app.example.com and routes the traffic to that service (website). Resources are like having records for a specific service.
+# Ingress Controller
+* The ingress controller is the brain of the Ingress that manages and operates the ingress resources.
+* Each cloud Provider provides their proprietary ingress controller.
+* The most used thirty-party ingress controller is the Nginx ingress controller.
+# Ingress Resource
+* The Ingress Resource is your way of telling the Ingress Controller how to manage incoming traffic and where to send it inside your Kubernetes cluster
+* It acts as a Layer-7 Load Balancer and allows for more advanced traffic routing compared to normal NodePort and LoadBalancer services
+* Using Ingress services, we can define complex routing rules and multiple backend services.
+* The Ingress controller will handle the implementation of these rules allowing external traffic to be efficiently and securely routed to the appropriate services within the cluster.
+
+In simple words, the Ingress controller is the traffic cop and the Ingress Resources are the traffic rules, just like how the traffic cop makes sure that everyone follows traffic rules in the same way the Ingress controller makes sure that the services work based on the Ingress resources.
 
 
 
