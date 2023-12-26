@@ -153,6 +153,17 @@ In the concept of cloud computing, we have two kinds of load balancers and they 
 
 In simple words, the Ingress controller is the traffic cop and the Ingress Resources are the traffic rules, just like how the traffic cop makes sure that everyone follows traffic rules in the same way the Ingress controller makes sure that the services work based on the Ingress resources.
 
-
-
+# Kubernetes ConfigMaps and Secrets
+# ConfigMaps:
+* A ConfigMap in Kubernetes is like a container for storing configuration data that your applications might need.
+* It holds key-value pairs, where each key represents a specific configuration item, and the value is the actual setting or data.
+* It holds information such as settings, environment variables, or any kind of configuration your application uses.
+* This allows you to keep configuration separate from your application code, making it easier to manage and update settings without changing the actual application.
+* Think of it as a way to keep your application flexible and adjustable by storing its configurable aspects outside the main code.
+* **Example use-case:** You have a microservices application running in Kubernetes, and each microservice needs to connect to a common MySQL database. Instead of hardcoding the database connection details like database name, database port, etc, in your application code, you use ConfigMaps to store configuration settings and if we need to modify the settings we can just modify them in the configmaps rather than changing them in our main code.
+# Secrets:
+* A Secret is like a secure vault for storing sensitive information such as passwords, API keys, or certificates.
+* It provides a way to keep this confidential data separate from your application code.
+* Secretes also serve the same purpose as ConfigMaps but in a more secure way by protecting sensible data from hackers.
+* **Example use-case:** You have a web application running in Kubernetes, and it needs to connect to a MySQL database. Instead of hardcoding the database credentials like the user name and password in your application code, you use a Kubernetes Secret to store this sensitive information securely.
 
